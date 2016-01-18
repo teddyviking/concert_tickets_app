@@ -1,14 +1,28 @@
 class ConcertsController < ApplicationController
   def index
-    if !params[:city] || params[:city].empty?
-      (flash[:error] = 'You should provide a city') 
-      render 'site/index', status: 404
+    @concerts = Concert.where(city: params[:city])
+    no_concert_found(params) if @concerts.empty?
+  end  
+
+
+
+  private
+
+  def no_concert_found(params)
+    if given_city?(params)
+      no_city_given
     else
-      @concerts = Concert.where(city: params[:city])
-      if @concerts.empty?
-        (flash[:error] = "There is no concerts in #{params[:city]}")
-        render 'site/index', status: 404
-      end
+      flash[:error] = "There is no concerts in #{params[:city]}"
+      render 'site/index', status: 404
     end
-  end   
+  end 
+
+  def given_city?(params)
+    !params[:city] || params[:city].empty?
+  end
+  
+  def no_city_given
+    flash[:error] = 'You should provide a city'
+    render 'site/index', status: 404
+  end
 end
