@@ -20,4 +20,13 @@ feature "Concert search engine" do
     click_button 'Search'
     expect(page).to have_content 'There is no concerts in Dos Hermanas'
   end
+
+  scenario "A city with a concert is included in the search" do
+    concert = create(:concert, city: 'Sevilla')
+    within("#city-form") do
+      fill_in 'city', :with => 'Sevilla'
+    end
+    click_button 'Search'
+    expect(page).to have_link concert_path(concert)
+  end
 end

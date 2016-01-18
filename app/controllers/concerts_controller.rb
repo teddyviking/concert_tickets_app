@@ -5,8 +5,10 @@ class ConcertsController < ApplicationController
       render 'site/index', status: 404
     else
       @concerts = Concert.where(city: params[:city])
-      (flash[:error] = "There is no concerts in #{params[:city]}")
-      render 'site/index', status: 404
+      if @concerts.empty?
+        (flash[:error] = "There is no concerts in #{params[:city]}")
+        render 'site/index', status: 404
+      end
     end
   end   
 end

@@ -1,6 +1,8 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :concert do
-    city "MyString"
+    city {Faker::Address.city}
   end
 
 end
