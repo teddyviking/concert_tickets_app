@@ -5,7 +5,7 @@ feature "Concert search engine" do
   scenario "No city included in the search" do
     visit '/'
     within("#city-form") do
-      fill_in 'City', :with => ''
+      fill_in 'city', :with => ''
     end
     click_button 'Search'
     expect(page).to have_content 'You should provide a city'

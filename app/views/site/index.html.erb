@@ -1,0 +1,5 @@
+<%= form_tag("/concerts", method: "get", id: "city-form") do %>
+  <%= label_tag(:city, "Enter your city:") %>
+  <%= text_field_tag(:city) %>
+  <%= submit_tag("Search") %>
+<% end %>
