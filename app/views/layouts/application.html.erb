@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<% if flash.any? %>
+  <%= render 'layouts/flash' %>
+<% end %>
+
 <%= yield %>
 
 </body>
